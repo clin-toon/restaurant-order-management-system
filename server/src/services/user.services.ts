@@ -1,0 +1,49 @@
+import pool from "../config/db"
+import { AppError } from "../utils/AppError";
+import { hashPassword } from "../utils/utils";
+import type { RegisterInput } from "../validators/validationSchema";
+
+export const isUserAlreadyRegistered = async (email:string ) =>{
+   try {
+     const result = await pool.query(
+      'SELECT * FROM customers WHERE email = $1',
+      [email]
+    );
+    
+    return result.rowCount
+  } catch (error) {
+    
+    console.error('Error fetching user by email:', error);
+    throw new AppError(`Database error , ${error}` , 500);
+
+  }
+}
+
+//creating a customer on databse after successfull validation
+export const createCustomer = async (userData: RegisterInput) => {
+   
+    const hashedPassword = await hashPassword(userData.password);
+
+    const query = `
+        INSERT INTO customers (
+            first_name, 
+            last_name, 
+            email, 
+            username, 
+            password, 
+            phone, 
+            role
+        ) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        RETURNING id, first_name, last_name, email, username, role, created_at;
+    `;
+
+    const {firstName , lastName , email , username , phone } = userData
+    const values = [
+       firstName , lastName , email, username , hashedPassword, phone, "customer"
+    ];
+
+    const result = await pool.query(query, values);
+    
+    return result.rows[0];
+};
