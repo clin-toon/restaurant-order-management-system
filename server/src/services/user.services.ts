@@ -1,6 +1,6 @@
 import pool from "../config/db"
 import { AppError } from "../utils/AppError";
-import { hashPassword } from "../utils/utils";
+import { hashPassword, comparePassword } from "../utils/utils";
 import type { RegisterInput } from "../validators/validationSchema";
 
 export const isUserAlreadyRegistered = async (email:string ) =>{
@@ -46,4 +46,24 @@ export const createCustomer = async (userData: RegisterInput) => {
     const result = await pool.query(query, values);
     
     return result.rows[0];
+};
+
+
+export const loginUser = async (email: string, pass: string) => {
+    // 1. Check if user exists (include password for comparison)
+    const result = await pool.query(
+        'SELECT * FROM customers WHERE email = $1', 
+        [email]
+    );
+    const user = result.rows[0];
+
+    // 2. Verify existence AND password
+    // We use a generic "Invalid credentials" for security (don't tell them which one was wrong)
+    if (!user || !(await comparePassword(pass, user.password))) {
+        throw new AppError("Invalid email or password", 401);
+    }
+
+    // 3. Remove password from the object before returning
+    delete user.password;
+    return user;
 };

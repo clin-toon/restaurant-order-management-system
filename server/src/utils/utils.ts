@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { AppError } from './AppError';
+import jwt from 'jsonwebtoken';
 
 /**
  * Hashes a plain text password using bcrypt.
@@ -24,4 +25,14 @@ export const hashPassword = async (password: string): Promise<string> => {
 
 export const comparePassword = async (password: string, hash: string): Promise<boolean> => {
   return await bcrypt.compare(password, hash);
+};
+
+
+const JWT_SECRET = process.env.JWT_SECRET ;
+const JWT_EXPIRES_IN = '1d'; // Token valid for 1 day
+
+export const signToken = (payload: object): string => {
+    return jwt.sign(payload, JWT_SECRET, {
+        expiresIn: JWT_EXPIRES_IN,
+    });
 };

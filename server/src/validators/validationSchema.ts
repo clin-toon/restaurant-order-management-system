@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+// register schema 
 export const registerSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
 
@@ -20,6 +21,13 @@ export const registerSchema = z.object({
   password: z.string()
     .min(8, "Password must be greater than 8 chars")
     .max(15, "Password must be less than 15 chars"),
+});
+
+
+// login schema
+export const loginSchema = registerSchema.pick({
+  email: true,
+  password: true
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;

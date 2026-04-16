@@ -1,14 +1,14 @@
 import {Router} from "express"
-import { registerSchema } from "../validators/validationSchema"
+import { registerSchema , loginSchema } from "../validators/validationSchema"
 
-import { registerController } from "../controllers/authController"
+import { loginController, registerController } from "../controllers/authController"
 import { validateInput } from "../middlewares/inputValidation"
 
 const router = Router() 
 
-router.post("/register" ,validateInput(registerSchema),  registerController)
-
-
+// auth routes 
+router.post("/auth/register" ,validateInput(registerSchema),  registerController)
+router.post("/auth/login" , validateInput(loginSchema) , loginController)
     
 
 
