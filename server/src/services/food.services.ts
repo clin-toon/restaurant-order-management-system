@@ -1,5 +1,11 @@
 import pool from '../config/db';
-
+/*
+ This service implemnts pagination
+ for displaying food items on
+ the home page based on the query 
+ parameter page and returns the 
+ result to controller
+*/
 
 export const getAllFoods = async (page:any) => {
     let offset = 0
@@ -20,12 +26,18 @@ export const getAllFoods = async (page:any) => {
 };
 
 
+/*
+This service querys database by creating
+dynamic query based on the query parameters and 
+return results to the controller
+*/
+
 export const findFoodByFilter = async(query:any ,cat:any , maximumPrice:any , minimumPrice:any , is_vegetarian:any,  limit:any)=>{
   let sql = `SELECT * FROM food_items`;
   const conditions = [];
   const values  = [];
 
-  // 2. Accumulate conditions (The order here defines the placeholder numbers)
+  // Accumulate conditions (The order here defines the placeholder numbers)
   if(query){
     values.push(`%${query}%`);
     conditions.push(`(name ILIKE $${values.length} OR description ILIKE $${values.length})`);
@@ -68,3 +80,16 @@ export const findFoodByFilter = async(query:any ,cat:any , maximumPrice:any , mi
   const result = await pool.query(sql, values);
   return result.rows;
 };
+
+
+/*
+This service querys database based on
+the id provided and  
+return results to the controller
+*/
+export const findFoodById = async(id:any) =>{
+    const query = `SELECT * from food_items where id = $1`
+    const result = await pool.query(query , [id])
+    return result.rows
+
+}
