@@ -20,9 +20,7 @@ export const isUserAlreadyRegistered = async (email:string ) =>{
 
 //creating a customer on database after successfull validation
 export const createCustomer = async (userData: RegisterInput) => {
-   
     const hashedPassword = await hashPassword(userData.password);
-
     const query = `
         INSERT INTO customers (
             first_name, 
@@ -36,7 +34,6 @@ export const createCustomer = async (userData: RegisterInput) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7) 
         RETURNING id, first_name, last_name, email, username, role, created_at;
     `;
-
     const {firstName , lastName , email , username , phone } = userData
     const values = [
        firstName , lastName , email, username , hashedPassword, phone, "customer"
@@ -49,19 +46,16 @@ export const createCustomer = async (userData: RegisterInput) => {
 
 
 export const loginUser = async (email: string, pass: string) => {
-    // 1. Check if user exists (include password for comparison)
+     // Check if user exists in the database 
     const result = await pool.query(
         'SELECT * FROM customers WHERE email = $1', 
         [email]
     );
     const user = result.rows[0];
 
-    // 2. Verify existence AND password
-    // We use a generic "Invalid credentials" for security (don't tell them which one was wrong)
     if (!user || !(await comparePassword(pass, user.password))) {
         throw new AppError("Invalid email or password", 401);
     }
-
     // 3. Remove password from the object before returning
     delete user.password;
     return user;
