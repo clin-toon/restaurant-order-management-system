@@ -30,4 +30,17 @@ export const loginSchema = registerSchema.pick({
   password: true
 });
 
+
+export const foodFilterSchema = z.object({
+  cat: z.string().optional(),
+  
+  is_vegetarian: z.preprocess((val) => val === 'true', z.boolean()).optional(),
+
+  min_price: z.coerce.number().min(0).optional(),
+  max_price: z.coerce.number().min(0).optional(),
+  search: z.string().optional(),
+}); 
+
+
+
 export type RegisterInput = z.infer<typeof registerSchema>;

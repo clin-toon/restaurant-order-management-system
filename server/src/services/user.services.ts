@@ -9,7 +9,6 @@ export const isUserAlreadyRegistered = async (email:string ) =>{
       'SELECT * FROM customers WHERE email = $1',
       [email]
     );
-    
     return result.rowCount
   } catch (error) {
     
@@ -19,7 +18,7 @@ export const isUserAlreadyRegistered = async (email:string ) =>{
   }
 }
 
-//creating a customer on databse after successfull validation
+//creating a customer on database after successfull validation
 export const createCustomer = async (userData: RegisterInput) => {
    
     const hashedPassword = await hashPassword(userData.password);
