@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import { getAvailableFoods , handleFilterQuery , getDetailsofSingleItem } from "../controllers/foodController";
+import { addItemToCartController , updateItemOfCartController, removeFromCartController } from "../controllers/cartController";
 import { foodFilterSchema } from '../validators/validationSchema';
 import { validateInput } from '../middlewares/inputValidation';
 import { protect, restrictTo } from '../middlewares/auth.middlware';
 import type { AuthRequest } from '../types/express';
+import { removeItemFromCart } from '../services/cart.services';
 
 
 const router = Router();
@@ -18,7 +20,12 @@ router.get("/singleFood/:id", getDetailsofSingleItem)
 
 router.get("/test" ,protect ,async (req :AuthRequest,res)=>{
     res.json(req.user)
-} )
+})
+
+// route to add food item to a cart 
+router.post("/addToCart" ,protect , addItemToCartController)
+router.put("/updateCartItem" ,protect , updateItemOfCartController)
+router.delete("/removeItemFromCart",protect ,removeFromCartController )
 
 
 

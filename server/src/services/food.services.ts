@@ -1,6 +1,6 @@
 import pool from '../config/db';
 /*
- This service implemnts pagination
+ This service implements pagination
  for displaying food items on
  the home page based on the query 
  parameter page and returns the 
@@ -93,3 +93,5 @@ export const findFoodById = async(id:any) =>{
     return result.rows
 
 }
+
+
