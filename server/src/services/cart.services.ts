@@ -13,13 +13,13 @@ export const addItemToCart = async(userId:any , foodId:Number , quantity:Number)
 
     const query = `INSERT INTO cart(
                 cart_user , food_item_id,quantity)
-                VALUES($1, $2, $3)`
+                VALUES($1, $2, $3)
+                RETURNING cart_user, food_item_id , quantity`
     
     const itemsArr = [userId , foodId , quantity]
 
     const results = await pool.query(query , itemsArr)
 
-    
 
    return  results.rows[0];
 

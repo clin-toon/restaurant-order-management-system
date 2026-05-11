@@ -12,20 +12,20 @@ const router = Router();
 
 // This is a public route (anyone can see the menu)
 router.get('/food', getAvailableFoods);
-router.get('/search' ,validateInput(foodFilterSchema), handleFilterQuery)
+router.get('/search' , handleFilterQuery)
 router.get("/singleFood/:id", getDetailsofSingleItem)
 
 
 // protected admin routes from here
-
 router.get("/test" ,protect ,async (req :AuthRequest,res)=>{
     res.json(req.user)
 })
 
+
 // route to add food item to a cart 
-router.post("/addToCart" ,protect , addItemToCartController)
-router.put("/updateCartItem" ,protect , updateItemOfCartController)
-router.delete("/removeItemFromCart",protect ,removeFromCartController )
+router.post("/cart/:id" ,protect , addItemToCartController)
+router.put("/cart/:id/:quantity" ,protect , updateItemOfCartController)
+router.delete("/cart/:id",protect ,removeFromCartController )
 
 
 

@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { AppError } from './AppError';
 import jwt from 'jsonwebtoken';
+import cloudinary from '../config/cloudinary';
 
 /**
  * Hashes a plain text password using bcrypt.
@@ -42,3 +43,17 @@ export const signToken = (payload: object): string => {
         expiresIn: JWT_EXPIRES_IN,
     });
 };
+
+
+export const uploadToCloudinary = (fileBuffer: Buffer): Promise<any> => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: 'restaurant_menu' },
+          (error, result) => {
+            if (result) resolve(result);
+            else reject(error);
+          }
+        );
+        stream.end(fileBuffer);
+      });
+    };

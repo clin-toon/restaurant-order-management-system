@@ -6,4 +6,6 @@ export interface AuthRequest extends Request {
         role: string;
         email: string;
     };
+    file?:Multer.File & {path:string} ;
 }
+

@@ -4,6 +4,8 @@ import type { Request , Response } from "express";
 import pool from "./config/db.js";
 import authRoutes from "./routes/auth.Route.js"
 import foodRoutes from "./routes/food.routes.js"
+import adminMenuAndInventoryRoutes from "./routes/admin.route.js"
+import orderRoutes from "./routes/order.routes.js"
 import { errorHandler } from './middlewares/errorHandler.js';
 
 const port = process.env.PORT || 8000
@@ -17,6 +19,8 @@ pool.connect().then(()=>{
 app.use(express.json())
 app.use("/api" , authRoutes)
 app.use("/api" , foodRoutes)
+app.use("/api/admin/" ,adminMenuAndInventoryRoutes)
+app.use("/api/order" ,orderRoutes )
 app.use(errorHandler)
 
 app.get("/" , (req : Request , res:Response)=>{

@@ -6,27 +6,28 @@ import type { AuthRequest } from '../types/express';
 
 export const addItemToCartController = async (req:AuthRequest ,res:Response) =>{
     const user_id = req.user?.id
-    const food_item_id = req.body.food_id
+    const food_item_id = req.params.id
 
     if (!food_item_id) {
         throw new AppError("Please provide a food_id", 400);
     }
 
 
-    const check  = await cartService.checkIfItemExistsInCart(user_id , food_item_id)
+    const check : any  = await cartService.checkIfItemExistsInCart(user_id , food_item_id)
 
     if(check > 0){
-        throw new AppError("Duplicate food id detected" , 400)
+        throw new AppError("Provided fodd item is already added in the cart" , 400)
     }
-    
+        
     const quantity = 1 
 
     try {
-        await cartService.addItemToCart(user_id , food_item_id , quantity)
+        const result = await cartService.addItemToCart(user_id , food_item_id , quantity)
 
         return res.status(201).json({
         status: 'success',
-        message:"Item added to cart "
+        message:"Item added to cart ",
+        data: result
         });
         
     } catch (error:any) {
@@ -37,13 +38,16 @@ export const addItemToCartController = async (req:AuthRequest ,res:Response) =>{
 
 
 export const updateItemOfCartController =async (req:AuthRequest , res:Response)=>{
-    const {quantity} = req.body 
+  
     const user_id = req.user?.id
-    const food_item_id = req.body.food_id
+    const {id , quantity} = req.params
 
+    
+    console.log(user_id , id , quantity)
+    
     try {
         
-        const results = await cartService.editQuantityOfItemInCart(user_id , food_item_id , quantity)
+        const results = await cartService.editQuantityOfItemInCart(user_id ,id , quantity)
         return res.status(200).json({
             success:true,
             data : results
@@ -52,15 +56,16 @@ export const updateItemOfCartController =async (req:AuthRequest , res:Response)=
         throw new AppError(error , 400)
         
     }
-
+    
 }
 
 
 export const removeFromCartController = async (req: AuthRequest, res: Response) => {
     // 1. Get user_id from your Auth Middleware
     const user_id = req.user?.id; 
+    const food_id= req.params.id
 
-    const { food_id } = req.body; 
+    
 
    
     if (!food_id) {

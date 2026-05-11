@@ -5,7 +5,6 @@ import { signToken } from "../utils/utils"
 
 export const registerController = async (req : Request , res:Response)=>{
     const {email} = req.body 
- 
     const exists = await isUserAlreadyRegistered(email);
     if (exists) throw new AppError("User exists ", 409);
 
@@ -15,8 +14,8 @@ export const registerController = async (req : Request , res:Response)=>{
         status: 'success',
         data: { user: newCustomer }
     });
-
 }
+
 
 export const loginController = async(req : Request , res:Response) =>{
     const { email, password } = req.body;
@@ -34,3 +33,5 @@ export const loginController = async(req : Request , res:Response) =>{
         data: { user }
     });
 }
+
+
