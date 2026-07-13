@@ -43,7 +43,7 @@ export const updateItemOfCartController =async (req:AuthRequest , res:Response)=
     const {id , quantity} = req.params
 
     
-    console.log(user_id , id , quantity)
+    
     
     try {
         
@@ -64,10 +64,6 @@ export const removeFromCartController = async (req: AuthRequest, res: Response) 
     // 1. Get user_id from your Auth Middleware
     const user_id = req.user?.id; 
     const food_id= req.params.id
-
-    
-
-   
     if (!food_id) {
         throw new AppError("Food item ID is required", 400);
     }
@@ -87,3 +83,32 @@ export const removeFromCartController = async (req: AuthRequest, res: Response) 
         data: deletedItem // Optional: show what was deleted
     });
 };
+
+
+export const getCartDetailsOfTheUserController = async (req:AuthRequest , res:Response) =>{
+     const user_id = req.user?.id; 
+     const cartItems = await cartService.getDetailsOfTheCartOfUser(user_id)
+
+     return res.status(200).json({
+        status: 'success',
+        message: "Fetched the cart details of the user",
+        count:cartItems.length,
+        data: cartItems 
+    });
+
+}
+
+export const  getCartItemDetailsController = async(req:AuthRequest , res:Response) =>{
+  
+    const user_id = req.user?.id; 
+    const data = await cartService.getUserCartDetails(user_id)
+    const total = data.Total
+   
+    return res.status(200).json({
+        status:"success",
+        message:"Fetched the cart details successfully",
+        cart:data.cart,
+        total
+    })
+
+}

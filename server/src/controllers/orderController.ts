@@ -5,9 +5,9 @@ import { AppError } from "../utils/AppError";
 
 export const createOrderController = async(req:AuthRequest , res:Response) =>{
 
-  
+
 try {
-    const result = await createOrderService(req.user?.id)
+    const result = await createOrderService(req.user?.id ,req.body )
 
     if(result){
         return res.status(201).json({

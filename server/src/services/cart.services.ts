@@ -1,4 +1,5 @@
 import pool from '../config/db';
+import { AppError } from '../utils/AppError';
 
 
 /*
@@ -67,3 +68,45 @@ export const removeItemFromCart = async (userId: any, foodItemId: string) => {
 
     return result.rows[0]; 
 };
+
+
+export const getDetailsOfTheCartOfUser = async(userId:any)=>{
+     const query = `
+        SELECT *  FROM cart 
+        WHERE cart_user = $1 
+    `;
+    
+    const values = [userId];
+    const result = await pool.query(query, values);
+
+    return result.rows; 
+}
+
+export const getUserCartDetails = async (userId:any) =>{
+ 
+      const query = `
+        SELECT 
+            f.id,
+            f.name AS title,
+            f.description,
+            f.image_url,
+            f.price,
+            f.category,
+            c.quantity,
+            (f.price * c.quantity) AS total_price
+        FROM cart c
+        JOIN food_items f 
+            ON c.food_item_id = f.id
+        WHERE c.cart_user = $1
+    `;
+
+    try {
+        const results = await pool.query(query ,[userId] )
+        const cart_items = results.rows 
+        const total_amount = cart_items.reduce((acc , item) => Number(item.total_price)+acc , 0)
+        return {cart:cart_items , Total:`$ `+ (total_amount)}
+    } catch (error : any) {
+        console.log(error)
+       throw new AppError(error.message , 500)
+    }
+} 

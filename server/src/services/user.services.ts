@@ -1,12 +1,16 @@
+
 import pool from "../config/db"
 import { AppError } from "../utils/AppError";
 import { hashPassword, comparePassword } from "../utils/utils";
+import type { ContactInput } from "../validators/contactValidation";
 import type { RegisterInput } from "../validators/validationSchema";
+import type { Response } from "express";
+import { getTheContactStatus } from "./admin.contact.services";
 
-export const isUserAlreadyRegistered = async (email:string ) =>{
+export const isUserAlreadyRegistered = async (email:string , tbl_name:string) =>{
    try {
      const result = await pool.query(
-      'SELECT * FROM customers WHERE email = $1',
+      `SELECT * FROM ${tbl_name} WHERE email = $1`,
       [email]
     );
     return result.rowCount
@@ -39,9 +43,15 @@ export const createCustomer = async (userData: RegisterInput) => {
        firstName , lastName , email, username , hashedPassword, phone, "customer"
     ];
 
-    const result = await pool.query(query, values);
+    try {
+         const result = await pool.query(query, values);
     
     return result.rows[0];
+    } catch (error : any) {
+        throw new AppError(error , 500)
+    }
+
+   
 };
 
 
@@ -60,3 +70,35 @@ export const loginUser = async (email: string, pass: string) => {
     delete user.password;
     return user;
 };
+
+
+export const registerContactInfo = async(contactObj:ContactInput ) =>{
+
+    const {first_name , last_name , email , phone , message} = contactObj 
+    let results;
+ 
+
+  
+    const query = `
+        INSERT INTO contacts (
+            first_name, 
+            last_name, 
+            email, 
+            message, 
+            phone ,
+            status
+        ) 
+        VALUES ($1, $2, $3, $4, $5, $6) 
+        RETURNING c_id, first_name, last_name, email, phone, message, status, created_at;
+    `;
+
+    const values = [first_name , last_name , email , message , phone , "pending"]
+
+
+
+
+    results = await pool.query(query, values);
+    
+    return results.rows[0];
+
+}

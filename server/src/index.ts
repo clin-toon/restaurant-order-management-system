@@ -1,12 +1,14 @@
 import  'dotenv/config';
 import express  from "express";
 import type { Request , Response } from "express";
+import cors from "cors" ;
 import pool from "./config/db.js";
 import authRoutes from "./routes/auth.Route.js"
 import foodRoutes from "./routes/food.routes.js"
 import adminMenuAndInventoryRoutes from "./routes/admin.route.js"
 import orderRoutes from "./routes/order.routes.js"
 import { errorHandler } from './middlewares/errorHandler.js';
+import cookieParser from 'cookie-parser';
 
 const port = process.env.PORT || 8000
 const app = express()
@@ -16,6 +18,11 @@ pool.connect().then(()=>{
 }).catch((error) =>console.log(error))
 
 // middlewares 
+app.use(cors({
+    origin:'http://localhost:3000',
+    credentials:true
+}));
+app.use(cookieParser());
 app.use(express.json())
 app.use("/api" , authRoutes)
 app.use("/api" , foodRoutes)

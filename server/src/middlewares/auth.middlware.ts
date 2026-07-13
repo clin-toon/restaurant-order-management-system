@@ -6,15 +6,16 @@ import { AppError } from '../utils/AppError';
 
 
 export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {
+
     try {
         // Extract token from the header 
-        let token;
-        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-            token = req.headers.authorization.split(' ')[1];
-        }
-
+       
+        const token = req.cookies.accessToken;
         if (!token) {
-            throw new AppError("Please log in to continue" , 401)
+            return res.status(401).json({
+                status:false,
+                message:"Log in required"
+            })
             
         }
         // Verify the token
@@ -22,7 +23,7 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
         
         // 3. Check if user still exists in DB (Security Best Practice)
         const userResult = await pool.query(
-            'SELECT id, email, role FROM customers WHERE id = $1', 
+            'SELECT id, first_name, email, phone , role FROM customers WHERE id = $1', 
             [decoded.id]
         );
         

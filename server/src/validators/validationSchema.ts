@@ -6,10 +6,10 @@ export const registerSchema = z.object({
 
   lastName: z.string().min(1, "Last name is required"), 
   
-  phone: z.number()
-    .int() 
-    .gte(1000000000, "Phone number must be 10 digits") 
-    .lte(9999999999, "Phone number must be 10 digits"), 
+  phone: z.string()
+    .min(10, "Phone number must be 10 digits") 
+    .max(10, "Phone number must be 10 digits") 
+   ,
 
   username: z.string()
     .min(3, "Username must be 3+ chars")
@@ -40,6 +40,9 @@ export const foodFilterSchema = z.object({
   max_price: z.coerce.number().min(0).optional(),
   search: z.string().optional(),
 }); 
+
+
+
 
 
 
