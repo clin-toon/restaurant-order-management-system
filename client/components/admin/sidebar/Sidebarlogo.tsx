@@ -18,7 +18,7 @@ export function SidebarLogo({ collapsed }: Props) {
       {!collapsed && (
         <div>
           <p className="text-white font-black text-sm tracking-tight leading-none">
-            CHIYA VIBES
+            FOODIE
           </p>
           <p className="text-white/35 text-[10px] mt-0.5 font-medium tracking-wide">
             Admin Console

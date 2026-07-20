@@ -35,7 +35,7 @@ export function SidebarFooter({ collapsed }: Props) {
               {user?.name ?? "Admin"}
             </p>
             <p className="text-[10px] text-white/35 mt-0.5 truncate">
-              {user?.email ?? "admin@eatly.com"}
+              {"admin@abc.com"}
             </p>
           </div>
         )}
