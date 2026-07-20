@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerSchema, loginSchema } from "../validators/validationSchema";
+import { registerSchema, loginSchema } from "../validators/validationSchema.js";
 
 import {
   getUserDetails,
