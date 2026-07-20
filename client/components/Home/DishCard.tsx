@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { ShoppingCartIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/hooks/ModalContextHook";
@@ -22,6 +22,8 @@ export default function DishCard({
   price,
   image_url,
   category,
+  sub_category,
+  times,
 }: Dish) {
   const { openModal, changeOnConfirm, closeModal } = useModal();
   const { user } = useAuth();
@@ -81,9 +83,13 @@ export default function DishCard({
         </p>
 
         {/* Rating */}
-        <div className="flex items-center gap-1 mt-3 text-sm text-stone-600">
-          <Star className="w-4 h-4 text-yellow-500 fill-yellow-400" />
-          {category}
+        <div className="flex items-center justify-between gap-1 mt-3 text-sm max-[80px]:  p-2 ">
+          <div>
+            <p className="text-stone-600 bg-slate-100 rounded-lg w-[55px] ">
+              {" "}
+              {category}
+            </p>
+          </div>
         </div>
 
         {/* Spacer pushes bottom content down */}
@@ -91,7 +97,7 @@ export default function DishCard({
 
         {/* Bottom row */}
         <div className="flex items-center justify-between mt-4">
-          <span className="text-base font-bold text-stone-900">${price}</span>
+          <span className="text-base font-bold text-stone-900">Rs.{price}</span>
 
           {checkFoodIdExistsOrNot(id) ? (
             <CartCounter id={id} />
@@ -100,6 +106,7 @@ export default function DishCard({
               onClick={handleCartItem}
               className={` h-9 cursor-pointer px-4 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs flex items-center gap-1`}
             >
+              <ShoppingCartIcon height={17} />
               Add
             </Button>
           )}

@@ -20,6 +20,7 @@ export type Dish = {
     image_url:string,
     category:string,
     is_available?:boolean
+    sub_category:string
 }
 
 export type FilterProps = {

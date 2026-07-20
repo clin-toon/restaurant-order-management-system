@@ -26,7 +26,7 @@ const RemoveCartItem = ({ id }: any) => {
 
   return (
     <Button
-      className="cursor-pointer bg-red-500 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center  hover:text-red-900 hover:bg-red-300 transition-colors opacity-0 group-hover:opacity-100"
+      className="cursor-pointer bg-red-500 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center  text-red-900 bg-red-500 transition-colors  "
       aria-label="Remove item"
       onClick={handleRemoveItem}
       title="Remove item from cart "

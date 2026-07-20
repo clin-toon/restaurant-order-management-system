@@ -2,22 +2,23 @@
 
 import Link from "next/link";
 import { UtensilsCrossed } from "lucide-react";
+import { useAuth } from "@/context/AuthContext/AuthContext";
 
 const footerLinks = {
   Explore: [
     { label: "Home", href: "/" },
     { label: "Menu", href: "/menu" },
-    { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
   ],
 };
 
-export default function Footer() {
+export function Footer() {
+  const { user } = useAuth();
+
+  if (user?.role === "admin") {
+    return null;
+  }
+
   return (
     <footer className="border-t border-stone-200 bg-white mt-auto">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">

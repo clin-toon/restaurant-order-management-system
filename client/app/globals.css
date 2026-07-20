@@ -4,10 +4,10 @@
 
 @tailwind utilities;
 
-/* Dark mode variant */
+
 @custom-variant dark (&:is(.dark *));
 
-/* ✅ THEME CONFIG (FIXED FONTS) */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

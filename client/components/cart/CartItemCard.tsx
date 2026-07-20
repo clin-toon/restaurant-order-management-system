@@ -10,7 +10,6 @@ const CartItemCard = ({ item }: { item: CartCardItem; index: number }) => {
 
   return (
     <div className="group flex gap-4 p-4 bg-white rounded-2xl border border-stone-100 shadow-sm hover:shadow-md hover:border-stone-200 transition-all duration-200">
-      {/* ── Image ── */}
       <div className="relative shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-stone-100">
         {item.image_url ? (
           <Image
@@ -21,19 +20,16 @@ const CartItemCard = ({ item }: { item: CartCardItem; index: number }) => {
             sizes="96px"
           />
         ) : (
-          // fallback if image_url is empty
           <div className="w-full h-full flex items-center justify-center text-2xl">
             🍽️
           </div>
         )}
 
-        {/* Quantity badge over image */}
         <span className="absolute top-1.5 left-1.5 bg-stone-900 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none">
           ×{item.quantity}
         </span>
       </div>
 
-      {/* ── Details ── */}
       <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
@@ -58,7 +54,6 @@ const CartItemCard = ({ item }: { item: CartCardItem; index: number }) => {
             {item.category}
           </span>
 
-          {/* Prices */}
           <div className="flex items-baseline gap-2">
             {item.quantity > 1 && (
               <span className="text-xs text-stone-400">

@@ -7,6 +7,7 @@ export const fetchMenuItems = async () =>{
     try {
         const res = await fetch(`${url}food`) ;
         const data = await res.json() ;
+        console.log(data)
         return data.data
     
     } catch (error) {
@@ -18,13 +19,15 @@ export const fetchMenuItems = async () =>{
 
 export const  getMenuDataWithFilters = async (params: SearchParamsShape) => {
   const query = new URLSearchParams(params as any).toString();
-  console.log(query)
-
   try {
          const res = await fetch(`${url}search?${query}`)
          const data = await res.json();
-         console.log(data)
-        return data.data;
+        const obj = {
+          totalPages:data.count,
+          data:data.data
+        }
+       
+        return obj;
   } catch (error) {
     console.log(error)
   }

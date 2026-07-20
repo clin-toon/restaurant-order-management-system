@@ -6,7 +6,6 @@ export const validateInput =
     const result = schema.safeParse(req.body);
     if (!result.success) {
       const errorMessage = result.error.issues[0].message;
-      console.log(errorMessage);
       throw new AppError(errorMessage, 400);
     }
 

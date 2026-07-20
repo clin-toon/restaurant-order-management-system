@@ -3,8 +3,8 @@ import ToastProvider from "@/components/providers/ToastProvider";
 import { ModalProvider } from "@/context/ModalContext/ModalContext";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Reuseable/Footer";
-import { AuthProvider } from "@/context/AuthContext/AuthContext";
+import { Footer } from "@/components/Reuseable/Footer";
+import { AuthProvider, useAuth } from "@/context/AuthContext/AuthContext";
 import { CartProvider } from "@/context/CartContext/CartContext";
 
 const playfair = Playfair_Display({
@@ -40,6 +40,7 @@ export default function RootLayout({
             </CartProvider>
 
             <footer>
+              {" "}
               <Footer />
             </footer>
           </ModalProvider>

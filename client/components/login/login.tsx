@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useLoginForm } from "@/hooks/useLoginfom";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const {
@@ -46,7 +47,7 @@ export default function LoginForm() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder="Enter your email address"
                 value={form.email}
                 onChange={handleChange}
                 className={
@@ -70,9 +71,14 @@ export default function LoginForm() {
                   Password
                 </Label>
                 <Button
+                  onClick={() => {
+                    toast.info(
+                      "This feature will be avaialable soon. Thank you for your patience.",
+                    );
+                  }}
                   type="button"
                   variant="ghost"
-                  className="text-xs text-stone-400 hover:text-stone-600 h-auto p-0"
+                  className="text-xs cursor-pointer text-stone-400 hover:underline h-auto p-0"
                 >
                   Forgot password?
                 </Button>
@@ -83,7 +89,7 @@ export default function LoginForm() {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
-                  placeholder="••••••••"
+                  placeholder="Enter your password "
                   value={form.password}
                   onChange={handleChange}
                   className={`pr-10 ${errors.password ? "border-red-400 bg-red-50 focus-visible:ring-red-400" : ""}`}

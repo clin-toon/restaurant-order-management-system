@@ -1,4 +1,3 @@
-
 export type Field =
   | "firstName"
   | "lastName"
@@ -9,7 +8,6 @@ export type Field =
 
 export type FormState = Record<Field, string>;
 export type ErrorState = Partial<Record<Field, string>>;
-
 
 export function validateSignup(values: FormState): ErrorState {
   const errors: ErrorState = {};
@@ -49,6 +47,8 @@ export function validateSignup(values: FormState): ErrorState {
     errors.password = "Password is required.";
   } else if (values.password.length < 8) {
     errors.password = "At least 8 characters.";
+  } else if (values.password.length > 15) {
+    errors.password = "Password can not exceed 15 characters.";
   } else if (!/[A-Z]/.test(values.password)) {
     errors.password = "Include at least one uppercase letter.";
   } else if (!/[0-9]/.test(values.password)) {
@@ -64,8 +64,6 @@ export function validateSignup(values: FormState): ErrorState {
 
   return errors;
 }
-
-// ─── Password Strength (EXTRACTED FROM YOUR CODE) ─────────────────────────
 
 export function getPasswordStrength(password: string): {
   score: number;

@@ -41,7 +41,7 @@ export const loginController = async (req: Request, res: Response) => {
   // 3. Send Response
   res.cookie("accessToken", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: false,
     sameSite: "lax",
     maxAge: 15 * 60 * 1000,
   });
@@ -59,8 +59,8 @@ export const getUserDetails = async (req: AuthRequest, res: Response) => {
 export const handleLogOut = async (req: AuthRequest, res: Response) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    sameSite: "lax",
+    secure: false,
   });
   res.status(200).json({
     success: true,

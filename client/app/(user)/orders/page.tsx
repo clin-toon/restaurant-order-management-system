@@ -1,11 +1,19 @@
-import React from "react";
+import { cookies } from "next/headers";
+import { fetchOrders } from "@/services/order.services";
+import OrdersClient from "@/components/order/Ordersclient";
 
-const page = () => {
-  return (
-    <div>
-      <h1>This is an order page</h1>
-    </div>
-  );
+const page = async () => {
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+
+  let data = null;
+  try {
+    data = await fetchOrders(cookieHeader);
+  } catch {
+    data = null;
+  }
+
+  return <OrdersClient orders={data?.data ?? []} />;
 };
 
 export default page;

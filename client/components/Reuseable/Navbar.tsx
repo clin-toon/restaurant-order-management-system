@@ -1,19 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { UtensilsCrossed, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useModal } from "@/hooks/ModalContextHook";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Menu", href: "/menu" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", id: "home" },
+  { label: "Menu", href: "/menu", id: "menu" },
+  { label: "Contact", href: "/contact", id: "contact" },
 ];
 
 export default function Navbar() {
+  const { openModal, changeOnConfirm, closeModal } = useModal();
+
+  useEffect(() => {
+    openModal({
+      title: "Notice",
+      des: "First visit may take a 20-30 seconds to load. This is a demo project, no real orders.",
+      act: "OK",
+    });
+
+    changeOnConfirm(closeModal);
+  }, []);
+  const pathName = usePathname();
+
   const [open, setOpen] = useState(false);
+  const [activePage, setActivePage] = useState(pathName.split("/")[1]);
+
+  const changeActivePageColor = (page: any) => {
+    setActivePage(page);
+  };
+
+  const handleSignUpButtonClick = () => {
+    setActivePage("");
+    setOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-stone-200">
@@ -35,9 +67,12 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
+              onClick={() => {
+                changeActivePageColor(link.id);
+              }}
               key={link.href}
               href={link.href}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+              className={`${activePage === link.id && "bg-stone-100"} px-4 py-2 rounded-xl text-sm font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors`}
             >
               {link.label}
             </Link>
@@ -47,8 +82,11 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
+            onClick={() => {
+              setActivePage("login");
+            }}
             href="/login"
-            className="text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors"
+            className={`${activePage === "login" ? "text-orange-600" : "text-stone-500"} text-sm font-medium  hover:text-stone-900 transition-colors`}
           >
             Log in
           </Link>
@@ -76,7 +114,9 @@ export default function Navbar() {
               side="right"
               className="w-72 p-0 border-l border-stone-200"
             >
-              {/* Sheet Header */}
+              <VisuallyHidden>
+                <SheetTitle>Add Food Item</SheetTitle>
+              </VisuallyHidden>
               <div className="flex items-center justify-between px-5 h-16 border-b border-stone-100">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-50">
@@ -93,7 +133,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-center w-8 h-8 rounded-xl text-stone-400 hover:bg-stone-100 transition-colors"
                 >
-                  <X className="w-4 h-4" />
+                  {/* <X className="w-4 h-4" /> */}
                 </button>
               </div>
 
@@ -126,7 +166,7 @@ export default function Navbar() {
                   asChild
                   className="w-full rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium h-10 shadow-none"
                 >
-                  <Link href="/signup" onClick={() => setOpen(false)}>
+                  <Link href="/register" onClick={handleSignUpButtonClick}>
                     Sign up
                   </Link>
                 </Button>

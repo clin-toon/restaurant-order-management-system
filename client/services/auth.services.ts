@@ -11,90 +11,79 @@ export const registerUser = async (values: FormState) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },      body: JSON.stringify(values)
+      },
+      body: JSON.stringify(values),
     });
 
     if (!res.ok) {
-       const errorData = await res.json().catch(() => ({ message: "Request failed" }));
-       return { error: errorData.message, status: res.status, success:false };
+      const errorData = await res
+        .json()
+        .catch(() => ({ message: "Request failed" }));
+      return { error: errorData.message, status: res.status, success: false };
     }
 
     const data = await res.json();
     return {
-        success:true,
-        message:data.message
-    }
-    
-  } catch (error) {   
+      success: true,
+      message: data.message,
+    };
+  } catch (error) {
     return { error: "Network request failed" };
   }
 };
 
-
- 
 export const loginUser = async (form: LoginFormState) => {
   try {
     const res = await fetch(`${url}auth/login`, {
-    method: "POST",
-    credentials: "include", 
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  });
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
 
-  if (!res.ok) return (await res.json())
-  return await res.json()
-    
+    if (!res.ok) return await res.json();
+    return await res.json();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
- 
 
-export const getCurrentUser = async() =>{
-   try {
-
-    const response = await fetch(
-     `${url}auth/me` ,
-      {
-        method: "GET",
-        credentials: "include"
-      }
-    )
+export const getCurrentUser = async () => {
+  try {
+    const response = await fetch(`${url}auth/me`, {
+      method: "GET",
+      credentials: "include",
+    });
 
     if (!response.ok) {
-      return {success:false, user:null}
-     
+      return { success: false, user: null };
     }
-    const data = await response.json()
-    return {success:true , user: data.data}
-
+    const data = await response.json();
+    return { success: true, user: data.data };
   } catch (error) {
-    console.log(error)
-    return error
-
-  } 
-}
-
+    console.log(error);
+    return error;
+  }
+};
 
 export const getUser = async (req: NextRequest) => {
-
-   if (!url) {
+  if (!url) {
     console.error("NEXT_PUBLIC_API_URL is not defined");
-    return null; // ← if this returns null, logged-in users pass through freely
+    return null;
   }
 
   try {
     const response = await fetch(`${url}auth/me`, {
       method: "GET",
       headers: {
-        cookie: req.headers.get("cookie") ?? "", 
+        cookie: req.headers.get("cookie") ?? "",
         origin: req.nextUrl.origin,
         host: req.headers.get("host") ?? "",
       },
     });
- 
+
     if (!response.ok) return null;
- 
+
     const data = await response.json();
     return data.data ?? null; // { id, name, email, role }
   } catch {
@@ -105,24 +94,43 @@ export const getUser = async (req: NextRequest) => {
 export const handleLogout = async () => {
   try {
     const res = await fetch(`${url}auth/logout`, {
-      method: "POST", // or GET depending on your backend
-      credentials: "include", // 🔥 IMPORTANT: sends cookies
+      method: "POST",
+      credentials: "include",
     });
-    
+
     if (!res.ok) {
       throw new Error("Logout failed");
     }
-    const data = await res.json()
-  
+    const data = await res.json();
 
-    toast.success("Logged out successfully.")
+    toast.success("Logged out successfully.");
 
-    setTimeout(() =>{window.location.replace("/login")} , 800)
-    
-    
+    setTimeout(() => {
+      window.location.replace("/login");
+    }, 800);
   } catch (error) {
     console.error("Logout error:", error);
   }
 };
 
+export const submitContactForm = async (data: any) => {
+  try {
+    const response = await fetch(`${url}admin/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
+    const result = await response.json();
+
+    if (!response.ok) {
+      return result;
+    }
+
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};

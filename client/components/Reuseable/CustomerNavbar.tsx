@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ShoppingCart,
   Menu,
@@ -162,9 +162,9 @@ export default function CustomerNavbar() {
                 <button
                   onClick={() => {
                     setMobileOpen(false);
-                    openModalComp;
+                    openModalComp();
                   }}
-                  className="bg-orange-500 flex cursor-pointer w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 transition-colors"
+                  className="bg-orange-500 text-white flex cursor-pointer w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium s hover:bg-red-50 transition-colors"
                 >
                   <LogOut size={16} />
                   Logout

@@ -35,7 +35,6 @@ export default function ConfirmModal({
 }: ConfirmModalProps) {
   const { state } = useModal();
   const { onConfirm } = state;
-  console.log(onConfirm);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

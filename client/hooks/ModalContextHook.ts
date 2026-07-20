@@ -1,4 +1,3 @@
-// hooks/useModal.ts
 "use client";
 
 import { useContext } from "react";

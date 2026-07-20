@@ -2,6 +2,7 @@
 import { useCart } from "@/hooks/useCart";
 import { CartCardItem } from "@/types/CartType";
 import { ChevronRight, ShoppingBag } from "lucide-react";
+import CreateOrderButton from "../order/CreateOrderButton";
 
 const OrderSummary = ({
   cart,
@@ -73,10 +74,7 @@ const OrderSummary = ({
         + Add more items
       </a>
 
-      <button className="w-full mt-5 cursor-pointer bg-orange-500 hover:bg-stone-700 active:scale-[0.98] text-white font-semibold text-sm py-3 rounded-xl transition-all duration-150 flex items-center justify-center gap-2">
-        Create an order
-        <ChevronRight size={15} />
-      </button>
+      <CreateOrderButton />
     </div>
   );
 };

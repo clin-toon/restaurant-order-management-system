@@ -5,7 +5,6 @@ import { useState } from "react";
 import { getPasswordStrength, validateSignup } from "@/utils/signUpValidation";
 import { FormState, TouchedState, Field } from "@/types/SignUpForm";
 import { cn } from "@/lib/utils";
-import LeftPanel from "@/components/Signup/LeftPanel";
 import { UtensilsCrossed, Eye, EyeOff, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +25,7 @@ export default function Page() {
   const [touched, setTouched] = useState<TouchedState>({});
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const errors = validateSignup(values);
   const strength = getPasswordStrength(values.password);
   const isValid = Object.keys(errors).length === 0;
@@ -43,15 +42,19 @@ export default function Page() {
     e.preventDefault();
 
     if (isValid) {
+      setIsLoading(true);
       const res = await registerUser(values);
 
       if (!res.success) {
+        setIsLoading(false);
         return toast.error(res.error);
       }
+      setIsLoading(false);
 
       toast.success(res.message);
       setSubmitted(true);
     } else {
+      setIsLoading(false);
       toast.error("Please solve errors. ");
     }
   };
@@ -114,6 +117,7 @@ export default function Page() {
                 touched={touched.firstName}
               >
                 <Input
+                  required
                   id="firstName"
                   placeholder="Jane"
                   value={values.firstName}
@@ -131,6 +135,7 @@ export default function Page() {
               >
                 <Input
                   id="lastName"
+                  required
                   placeholder="Doe"
                   value={values.lastName}
                   onChange={(e) => handleChange("lastName", e.target.value)}
@@ -148,6 +153,7 @@ export default function Page() {
               touched={touched.email}
             >
               <Input
+                required
                 id="email"
                 type="email"
                 placeholder="jane@example.com"
@@ -170,6 +176,7 @@ export default function Page() {
                   @
                 </span>
                 <Input
+                  required
                   id="username"
                   placeholder="jane_doe"
                   value={values.username}
@@ -192,6 +199,7 @@ export default function Page() {
             >
               <div className="relative">
                 <Input
+                  required
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Min. 8 characters"
@@ -199,6 +207,7 @@ export default function Page() {
                   onChange={(e) => handleChange("password", e.target.value)}
                   onBlur={() => handleBlur("password")}
                   className={cn(inputClass("password"), "pr-10")}
+                  maxLength={15}
                 />
                 <button
                   type="button"
@@ -242,6 +251,7 @@ export default function Page() {
               touched={touched.phone}
             >
               <Input
+                required
                 id="phone"
                 type="tel"
                 placeholder="10-digit number"
@@ -263,10 +273,14 @@ export default function Page() {
 
             {/* Submit */}
             <Button
+              disabled={isLoading}
               onClick={handleSubmit}
-              className="w-full h-10 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium shadow-none transition-colors mt-2"
+              className={`${isLoading && "opacity-90 cursor-not-allowed "} cursor-pointer w-full h-10 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium shadow-none transition-colors mt-2`}
             >
-              Create Account
+              {isLoading && (
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              )}
+              {isLoading ? "Creating your account..." : "Create Account"}
             </Button>
 
             {/* Terms */}

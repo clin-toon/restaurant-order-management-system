@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUser } from "./services/auth.services";
 
-const PUBLIC_ONLY_ROUTES = ["/login", "/register" ];
-const CUSTOMER_ROUTES    = ["/home",  "/cart", "/orders"];
-const ADMIN_ROUTES       = ["/dashboard", "/users"];
-
+const PUBLIC_ONLY_ROUTES = ["/login", "/register"];
+const CUSTOMER_ROUTES = ["/home", "/cart", "/orders"];
+const ADMIN_ROUTES = ["/dashboard", "/users", "/admin"];
 
 export const proxy = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
@@ -12,7 +11,6 @@ export const proxy = async (req: NextRequest) => {
   // 1. Public-only routes — redirect logged-in users away
   if (PUBLIC_ONLY_ROUTES.some((r) => pathname.startsWith(r))) {
     const user = await getUser(req);
-
 
     if (user) {
       const redirectTo = user.role === "admin" ? "/dashboard" : "/home";
@@ -55,7 +53,6 @@ export const proxy = async (req: NextRequest) => {
   return NextResponse.next();
 };
 
-
 export const config = {
   matcher: [
     "/login",
@@ -65,6 +62,7 @@ export const config = {
     "/cart/:path*",
     "/orders/:path*",
     "/dashboard/:path*",
+    "/admin/:path*",
     "/users/:path*",
   ],
 };

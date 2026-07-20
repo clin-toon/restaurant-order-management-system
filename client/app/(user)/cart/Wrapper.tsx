@@ -31,14 +31,12 @@ const Wrapper = ({ totalAmount }: any) => {
             <EmptyCart />
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Cart items — takes 2/3 */}
               <div className="lg:col-span-2 flex flex-col gap-3">
                 {cart.map((item, index) => (
                   <CartItemCard key={item.id} item={item} index={index} />
                 ))}
               </div>
 
-              {/* Order summary — takes 1/3, sticky */}
               <div className="lg:col-span-1">
                 <OrderSummary cart={cart} total={totalAmount} />
               </div>

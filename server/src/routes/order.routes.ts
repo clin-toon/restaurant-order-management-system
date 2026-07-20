@@ -6,11 +6,13 @@ import {
 } from "../controllers/orderController";
 import { validateInput } from "../middlewares/inputValidation";
 import { deliveryAddressSchema } from "../validators/admin/order.schema";
+import { orderLimiter } from "../middlewares/ratelimiter";
 
 const router = Router();
 
 router.post(
   "/create",
+  orderLimiter,
   protect,
   validateInput(deliveryAddressSchema),
   createOrderController,

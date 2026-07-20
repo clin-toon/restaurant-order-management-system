@@ -5,10 +5,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**", // 
+        hostname: "**", //
       },
     ],
   },
-}
+  allowedDevOrigins: ["192.168.101.8"],
+};
 
 export default nextConfig;

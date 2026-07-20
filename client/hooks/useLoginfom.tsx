@@ -33,6 +33,8 @@ export const useLoginForm = () => {
     setIsLoading(true);
     try {
       const data = await loginUser(form);
+      console.log(data);
+
       if (data.success) {
         toast.success("Login successfull. ");
         window.location.reload();
