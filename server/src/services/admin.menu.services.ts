@@ -33,10 +33,7 @@ export const createNewItemService = async (
   }
 };
 
-export const toogleStatusOfFoodService = async (
-  foodid: any,
-  status: boolean,
-) => {
+export const toogleStatusOfFoodService = async (foodid: any, status: any) => {
   try {
     const query = `
         UPDATE food_items 

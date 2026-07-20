@@ -39,7 +39,7 @@ const JWT_EXPIRES_IN = "1d"; // Token valid for 1 day
  * Function that signs jwt to the valid user
  */
 export const signToken = (payload: object): string => {
-  return jwt.sign(payload, JWT_SECRET, {
+  return jwt.sign(payload, JWT_SECRET!, {
     expiresIn: JWT_EXPIRES_IN,
   });
 };
