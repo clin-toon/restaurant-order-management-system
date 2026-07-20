@@ -34,7 +34,7 @@ export const createNewItemService = async (
 };
 
 export const toogleStatusOfFoodService = async (
-  foodid: string,
+  foodid: any,
   status: boolean,
 ) => {
   try {
@@ -61,7 +61,7 @@ export const toogleStatusOfFoodService = async (
   }
 };
 
-export const deleteFoodItemService = async (food_item_id: string) => {
+export const deleteFoodItemService = async (food_item_id: any) => {
   const query = `
         DELETE FROM food_items where id = $1
         RETURNING id, , price, category, is_available

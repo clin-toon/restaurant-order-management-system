@@ -69,7 +69,7 @@ export const handleLogOut = async (req: AuthRequest, res: Response) => {
 };
 
 export const contactController = async (req: Request, res: Response) => {
-  const result = await getTheContactStatus(req.body.email);
+  const result = (await getTheContactStatus(req.body.email))!;
 
   const contactArray = result?.contact;
 

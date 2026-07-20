@@ -2,10 +2,10 @@ import pool from "../config/db";
 import { AppError } from "../utils/AppError";
 
 export const getTheCustomerOrderDetails = async (
-  order_status: string,
-  payment_status: string,
-  search: string,
-  sort: string,
+  order_status: any,
+  payment_status: any,
+  search: any,
+  sort: any,
 ) => {
   let query = `select
  o.id, c.first_name || ' ' || last_name as "full_name" ,
@@ -97,14 +97,14 @@ export const updateOrderStatusService = async (
   }
 };
 
-export const deleteOrderService = async (order_id: string) => {
+export const deleteOrderService = async (order_id: any) => {
   const query = `DELETE FROM orders where id = $1 RETURNING id, customer_id, order_status, updated_at;
     `;
   const result = await pool.query(query, [order_id]);
   return result.rows;
 };
 
-export const getTheSpecificOrderDetails = async (order_id: string) => {
+export const getTheSpecificOrderDetails = async (order_id: any) => {
   const query = `SELECT 
   O.id AS order_id,
 

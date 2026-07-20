@@ -163,7 +163,7 @@ LIMIT 6;`;
   try {
     const res = await pool.query(mostOrderedItems);
     return res.rows;
-  } catch (error) {
+  } catch (error: any) {
     throw new AppError(error, 500);
   }
 };

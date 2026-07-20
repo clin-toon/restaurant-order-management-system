@@ -25,7 +25,7 @@ export const getCustomerInsights = async () => {
   }
 };
 
-export const getCustomerInsightsDetails = async (customer_id: number) => {
+export const getCustomerInsightsDetails = async (customer_id: any) => {
   const queryForInsights = `
         select 
             c.id, 

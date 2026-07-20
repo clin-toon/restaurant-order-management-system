@@ -31,22 +31,23 @@ export const getAllTheContactQurey = async () => {
   const details = await pool.query(query);
   return details.rows;
 };
-
 export const getTheContactStatus = async (email: string) => {
   const query = "SELECT * from contacts where email = $1";
-  const values = [email];
 
   try {
-    const result = await pool.query(query, values);
+    const result = await pool.query(query, [email]);
 
-    return { count: result.rowCount, contact: result?.rows };
+    return {
+      count: result.rows.length,
+      contact: result.rows,
+    };
   } catch (error: any) {
     console.log(error);
     throw new AppError(error, 500);
   }
 };
 
-export const updateTheStatus = async (id: string) => {
+export const updateTheStatus = async (id: any) => {
   const query = `UPDATE contacts set status = 'replied' where c_id = $1
     returning c_id , first_name , last_name, phone, status, message
   `;
@@ -54,7 +55,7 @@ export const updateTheStatus = async (id: string) => {
     const result = await pool.query(query, [id]);
 
     return { count: result.rowCount, contact: result?.rows };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     throw new AppError(error, 500);
   }
