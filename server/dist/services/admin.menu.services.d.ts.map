@@ -1,1 +1,0 @@
-{"version":3,"file":"admin.menu.services.d.ts","sourceRoot":"","sources":["../../src/services/admin.menu.services.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,iCAAiC,CAAC;AAErE,eAAO,MAAM,oBAAoB,GAC/B,cAAc,aAAa,EAC3B,UAAU,MAAM,iBA2BjB,CAAC;AAEF,eAAO,MAAM,yBAAyB,GAAU,QAAQ,GAAG,EAAE,QAAQ,GAAG,iBAuBvE,CAAC;AAEF,eAAO,MAAM,qBAAqB,GAAU,cAAc,GAAG,iBAe5D,CAAC"}

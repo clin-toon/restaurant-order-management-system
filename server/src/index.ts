@@ -1,7 +1,7 @@
+import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import type { Request, Response } from "express";
-import cors from "cors";
 import pool from "./config/db.js";
 import authRoutes from "./routes/auth.Route.js";
 import foodRoutes from "./routes/food.routes.js";
