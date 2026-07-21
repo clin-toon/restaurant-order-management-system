@@ -4,7 +4,7 @@ import { ModalProvider } from "@/context/ModalContext/ModalContext";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Reuseable/Footer";
-import { AuthProvider, useAuth } from "@/context/AuthContext/AuthContext";
+import { AuthProvider } from "@/context/AuthContext/AuthContext";
 import { CartProvider } from "@/context/CartContext/CartContext";
 
 const playfair = Playfair_Display({

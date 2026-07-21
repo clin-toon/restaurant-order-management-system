@@ -12,7 +12,6 @@ import {
 import { OrdersFilterBar } from "./OrdersFilterBar";
 import { OrdersTable } from "./OrdersTable";
 import Pagination from "@/components/Menu/Pagination";
-import { updateTheStatusOfTheOrder } from "@/services/admin.order.services";
 import { updateAdminOrderPageURL } from "@/utils/menuPage";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -22,8 +21,8 @@ export default function AdminOrdersClient({ initialOrders }: Props) {
   const [orders, setOrders] = useState<AdminOrder[]>(initialOrders);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("latest");
-  const [statusFilter, setStatus] = useState<StatusFilter>("");
-  const [paymentFilter, setPayment] = useState<PaymentFilter>("");
+  const [statusFilter, setStatus] = useState<StatusFilter>("all");
+  const [paymentFilter, setPayment] = useState<PaymentFilter>("all");
   const router = useRouter();
   const searchp = useSearchParams();
 

@@ -15,7 +15,7 @@ const footerLinks = {
 export function Footer() {
   const { user } = useAuth();
 
-  if (user?.role === "admin") {
+  if (user?.role === "Admin") {
     return null;
   }
 

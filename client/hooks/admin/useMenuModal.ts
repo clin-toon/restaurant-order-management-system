@@ -16,6 +16,7 @@ export type FormState = {
   is_vegetarian: boolean;
   image_url: string;
   imageFile?: File | null;
+  image?: File;
 };
 
 export type FormErrors = Partial<Record<keyof FormState, string>>;

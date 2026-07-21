@@ -4,7 +4,6 @@ export const contactSchema = z.object({
   c_id: z.string().uuid().optional(),
 
   first_name: z.string().min(1, "First name is required").max(100),
-  email: z.email(),
   last_name: z.string().min(1, "Last name is required").max(100),
 
   phone: z.string().regex(/^[0-9]{10}$/, "Phone must be exactly 10 digits"),

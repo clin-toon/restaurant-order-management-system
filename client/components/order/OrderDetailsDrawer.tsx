@@ -10,7 +10,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function OrderDetailDrawer({ record, onClose }: Props) {
+export default function OrderDetailDrawer({ record, onClose }: any) {
   if (!record) return null;
 
   const order = record.order;
@@ -143,7 +143,7 @@ export default function OrderDetailDrawer({ record, onClose }: Props) {
               Items Ordered
             </p>
             <div className="flex flex-col gap-3">
-              {items.map((item, i) => (
+              {items.map((item: any, i: any) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-stone-100 shrink-0">
                     <Image
@@ -178,7 +178,7 @@ export default function OrderDetailDrawer({ record, onClose }: Props) {
               Bill Summary
             </p>
             <div className="flex flex-col gap-2">
-              {items.map((item, i) => (
+              {items.map((item: any, i: any) => (
                 <div key={i} className="flex justify-between text-sm">
                   <span className="text-stone-500">
                     {item.food_item} × {item.quantity}

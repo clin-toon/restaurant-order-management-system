@@ -15,7 +15,7 @@ export type OrderDetail = {
 export type Order = {
   order_id: string;
   total_amount: number;
-  order_status:
+  order_status?:
     | "pending"
     | "confirmed"
     | "preparing"

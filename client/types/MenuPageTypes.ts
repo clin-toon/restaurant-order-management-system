@@ -3,7 +3,6 @@ export type serachBarProps = {
   onChange: (val: string) => void;
 };
 
-
 export type SearchParamsShape = {
   category?: string;
   minPrice?: string;
@@ -13,15 +12,16 @@ export type SearchParamsShape = {
 };
 
 export type Dish = {
-    id:string,
-    name:string,
-    description:string,
-    price:string,
-    image_url:string,
-    category:string,
-    is_available?:boolean
-    sub_category:string
-}
+  id?: string;
+  name?: string;
+  description?: string;
+  price?: string;
+  image_url?: string;
+  category?: string;
+  is_available?: boolean;
+  sub_category?: string;
+  times?: any;
+};
 
 export type FilterProps = {
   searchParams: Promise<SearchParamsShape>;

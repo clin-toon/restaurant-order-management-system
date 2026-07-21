@@ -10,7 +10,7 @@ import Pagination from "@/components/Menu/Pagination";
 const page = async ({ searchParams }: FilterProps) => {
   const resolvedParams: SearchParamsShape = await searchParams;
   const dishes = await getMenuDataWithFilters(resolvedParams);
-  const { totalPages, data } = dishes;
+  const { totalPages, data }: any = dishes;
 
   return (
     <div className="flex flex-1 min-h-screen md:h-screen mb-7">
@@ -47,6 +47,7 @@ const page = async ({ searchParams }: FilterProps) => {
                     image_url={dish.image_url}
                     price={dish.price}
                     category={dish.category}
+                    sub_category={dish.sub_category}
                   />
                 ))}
               </div>

@@ -7,23 +7,32 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 
-const ContactButton = ({ payload }: any) => {
+const ContactButton = ({
+  payload,
+  validateForm,
+}: {
+  payload: any;
+  validateForm: () => boolean;
+}) => {
   const [loading, setLoading] = useState(false);
   const handleContact = async () => {
+    if (!validateForm()) {
+      toast.error("Please fix the errors in the form.");
+      return;
+    }
+
     try {
       setLoading(true);
+
       const res = await submitContactForm(payload);
 
       if (res?.success) {
-        setLoading(false);
-        toast.success(res?.message);
+        toast.success(res.message);
       } else {
-        setLoading(false);
         toast.error(res?.message);
       }
     } catch (error: any) {
-      setLoading(false);
-      toast.error(error);
+      toast.error(error?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

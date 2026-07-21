@@ -34,9 +34,7 @@ export default function OrderModal({ open, onClose, user }: Props) {
   const { addToDetailsCart } = useCart();
   const [phone, setPhone] = useState(user.phone ?? "");
   const [mapOpen, setMapOpen] = useState(false);
-  const [deliveryData, setDeliveryData] = useState<DeliveryPayload | null>(
-    null,
-  );
+  const [deliveryData, setDeliveryData] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 

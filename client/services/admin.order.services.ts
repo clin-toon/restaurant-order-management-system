@@ -5,7 +5,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const fetchOrderDetails = async (
   cookieHeader: string,
-  params: string,
+  params: Record<string, string | string[] | undefined>,
 ) => {
   const query = new URLSearchParams(params as any).toString();
   let apiEndPoint = `${url}admin/order?${query}`;

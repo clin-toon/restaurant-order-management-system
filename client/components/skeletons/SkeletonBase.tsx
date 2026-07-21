@@ -1,4 +1,12 @@
-export function Skeleton({ className = "" }: { className?: string }) {
+import { CSSProperties } from "react";
+
+export function Skeleton({
+  className = "",
+  style,
+}: {
+  className?: string;
+  style?: CSSProperties;
+}) {
   return (
     <div className={`animate-pulse bg-stone-200 rounded-lg ${className}`} />
   );

@@ -6,7 +6,7 @@ export default async function AdminCustomersPage() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
 
-  let customers = [];
+  let customers: any = [];
   try {
     const data = await getCustomers(cookieHeader);
     customers = data.data ?? [];

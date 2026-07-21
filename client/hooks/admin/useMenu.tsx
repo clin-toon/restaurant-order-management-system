@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ModalMode } from "@/components/admin/menu/MenuItemModal";
+import type { ModalMode } from "@/hooks/admin/useMenuModal";
 import { MenuItem, SortOption, CategoryFilter } from "@/types/admin.types";
 
 export const useMenu = () => {
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState<SortOption>("");
-  const [category, setCategory] = useState<CategoryFilter>("");
+  const [sort, setSort] = useState<SortOption>("latest");
+  const [category, setCategory] = useState<CategoryFilter>("all");
   const [modalMode, setModalMode] = useState<ModalMode>(null);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 

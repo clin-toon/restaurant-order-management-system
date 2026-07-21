@@ -14,7 +14,7 @@ export const CartContext = createContext<CartContextType | null>(null);
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  const addToDetailsCart = (item: CartCardItem) => {
+  const addToDetailsCart = (item: any) => {
     dispatch({ type: "ADD_DETAILS_TO_CART", payload: item });
   };
 
@@ -24,18 +24,18 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getTotalCartItem = () => state.cartCount;
 
-  const findTheQuantityOfTheFoodItem = (food_id: string) => {
-    const item = state.cartDetailsItem.find((item) => item.id === food_id);
+  const findTheQuantityOfTheFoodItem = (food_id: any) => {
+    const item = state.cartDetailsItem.find((item: any) => item.id === food_id);
     return item?.quantity;
   };
 
   const checkFoodIdExistsOrNot = (food_item_id: string) => {
-    return state.cartDetailsItem.some((item) => item.id === food_item_id);
+    return state.cartDetailsItem.some((item: any) => item.id === food_item_id);
   };
 
   const removeItemFromCart = (food_id: string) => {
     const filteredItems = state.cartDetailsItem.filter(
-      (item) => item.id !== food_id,
+      (item: any) => item.id !== food_id,
     );
     dispatch({ type: "REMOVE_ITEM", payload: filteredItems });
   };

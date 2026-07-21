@@ -7,17 +7,15 @@ export interface CartItem {
   user_id?: string;
 }
 
-
 export interface CartState {
   cartCount: number;
-  cartDetailsItem:CartDetailsItem[]
+  cartDetailsItem: CartDetailsItem[];
 }
 
 export type CartAction =
-  {type:"UPDATE_COUNT" ; payload:number} |
-  {type:"ADD_DETAILS_TO_CART" ; payload:CartCardItem} | 
-  {type:"REMOVE_ITEM" ; payload:CartDetailsItem[]}
-
+  | { type: "UPDATE_COUNT"; payload: number }
+  | { type: "ADD_DETAILS_TO_CART"; payload: CartCardItem }
+  | { type: "REMOVE_ITEM"; payload: CartDetailsItem[] };
 
 export type CartCardItem = {
   id: string;
@@ -27,9 +25,9 @@ export type CartCardItem = {
   category: string;
   quantity: number;
   total_price: string;
-  image_url?:string
+  image_url?: string;
 };
- 
+
 export type CartResponse = {
   status: string;
   message: string;
@@ -45,7 +43,7 @@ export const categoryColor: Record<string, string> = {
   lunch: "bg-violet-50 text-violet-700 border border-violet-200",
 };
 
-export type CartDetailsItem =  {
+export type CartDetailsItem = {
   id: string;
   title: string;
   description: string;
@@ -54,14 +52,14 @@ export type CartDetailsItem =  {
   quantity: number;
   total_price: string;
   image_url: string;
-}
+};
 
-export interface CartContextType  {
-  state:CartState
+export interface CartContextType {
+  state: CartState;
   getTotalCartItem: () => number;
-  checkFoodIdExistsOrNot: (food_item_id: string ) => boolean;
-  updateCartCount: (currCount: number ) => void;
-  addToDetailsCart:(arr:any)=>void;
-  removeItemFromCart :(food_id:string) => void;
-  findTheQuantityOfTheFoodItem:(food_id:string)=>number
+  checkFoodIdExistsOrNot: (food_item_id: any) => boolean;
+  updateCartCount: (currCount: number) => void;
+  addToDetailsCart: (arr: any) => void;
+  removeItemFromCart: (food_id: string) => void;
+  findTheQuantityOfTheFoodItem: (food_id: string) => number;
 }

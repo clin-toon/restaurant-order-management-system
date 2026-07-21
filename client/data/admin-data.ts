@@ -156,13 +156,13 @@ export const WEEKLY_REVENUE = [
 ];
 
 export const MONTHLY_REVENUE = [
-  { month: "Jan", revenue: 68000 },
-  { month: "Feb", revenue: 74000 },
-  { month: "Mar", revenue: 81000 },
-  { month: "Apr", revenue: 79000 },
-  { month: "May", revenue: 95000 },
-  { month: "Jun", revenue: 108000 },
-  { month: "Jul", revenue: 124580 },
+  { day: "Jan", revenue: 68000, orders: 4 },
+  { day: "Feb", revenue: 74000, orders: 4 },
+  { day: "Mar", revenue: 81000, orders: 4 },
+  { day: "Apr", revenue: 79000, orders: 4 },
+  { day: "May", revenue: 95000, orders: 4 },
+  { day: "Jun", revenue: 108000, orders: 4 },
+  { day: "Jul", revenue: 124580, orders: 4 },
 ];
 
 export const ORDER_STATUS = [

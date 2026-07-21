@@ -13,12 +13,72 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const [errors, setErrors] = useState({
+    first_name: "",
+    last_name: "",
+    phone: "",
+    message_type: "",
+    message: "",
+  });
+
+  const validateField = (name: string, value: string) => {
+    switch (name) {
+      case "first_name":
+        return value.trim() ? "" : "First name is required";
+
+      case "last_name":
+        return value.trim() ? "" : "Last name is required";
+
+      case "phone":
+        if (!value.trim()) return "Phone number is required";
+        if (!/^\+?[0-9]{7,15}$/.test(value))
+          return "Enter a valid phone number";
+        return "";
+
+      case "message_type":
+        return value.trim() ? "" : "Please select a topic";
+
+      case "message":
+        if (!value.trim()) return "Message is required";
+        if (value.trim().length < 10)
+          return "Message must be at least 10 characters";
+        return "";
+
+      default:
+        return "";
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      first_name: validateField("first_name", formData.first_name),
+      last_name: validateField("last_name", formData.last_name),
+      phone: validateField("phone", formData.phone),
+      message_type: validateField("message_type", formData.message_type),
+      message: validateField("message", formData.message),
+    };
+
+    setErrors(newErrors);
+
+    return !Object.values(newErrors).some(Boolean);
   };
 
   return (
@@ -74,6 +134,11 @@ export default function ContactPage() {
                   placeholder="Enter your first name"
                   className="h-10 rounded-xl border border-stone-200 px-3.5 text-sm text-stone-900 placeholder:text-stone-300 outline-none focus:border-stone-400 focus:ring-2 focus:ring-stone-100 transition"
                 />
+                {errors.first_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.first_name}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold uppercase tracking-widest text-stone-400">
@@ -87,6 +152,11 @@ export default function ContactPage() {
                   placeholder="Enter your last name"
                   className="h-10 rounded-xl border border-stone-200 px-3.5 text-sm text-stone-900 placeholder:text-stone-300 outline-none focus:border-stone-400 focus:ring-2 focus:ring-stone-100 transition"
                 />
+                {errors.last_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.last_name}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -102,6 +172,9 @@ export default function ContactPage() {
                 placeholder="Enter your phone number"
                 className="h-10 rounded-xl border border-stone-200 px-3.5 text-sm text-stone-900 placeholder:text-stone-300 outline-none focus:border-stone-400 focus:ring-2 focus:ring-stone-100 transition"
               />
+              {errors.phone && (
+                <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -120,6 +193,11 @@ export default function ContactPage() {
 
                 <option value={"Feedback"}>Feedback</option>
               </select>
+              {errors.message_type && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.message_type}
+                </p>
+              )}
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -134,9 +212,12 @@ export default function ContactPage() {
                 placeholder="Tell us what's on your mind..."
                 className="rounded-xl border border-stone-200 px-3.5 py-3 text-sm text-stone-900 placeholder:text-stone-300 outline-none focus:border-stone-400 focus:ring-2 focus:ring-stone-100 transition resize-none"
               />
+              {errors.message && (
+                <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+              )}
             </div>
 
-            <ContactButton payload={formData} />
+            <ContactButton payload={formData} validateForm={validateForm} />
           </div>
         </div>
 

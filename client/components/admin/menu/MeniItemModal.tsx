@@ -20,7 +20,7 @@ import { ModalMode } from "@/hooks/admin/useMenuModal";
 import DeleteMenuItem from "./DeleteMenuItem";
 
 type Props = {
-  open: boolean;
+  open: any;
   mode: ModalMode;
   item: MenuItem | null;
   onClose: () => void;

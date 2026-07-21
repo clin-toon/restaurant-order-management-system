@@ -1,10 +1,21 @@
-import { CartItem, CartState , CartAction } from "@/types/CartType";
+import { CartItem, CartState, CartAction } from "@/types/CartType";
 
-export const  cartReducer = (state:CartState, action:CartAction) => {
+export const cartReducer = (state: any, action: any) => {
   switch (action.type) {
-   case "UPDATE_COUNT": return{...state , cartCount:action.payload};
-   case "ADD_DETAILS_TO_CART":return {...state , cartDetailsItem:action.payload , cartCount:action.payload.length}
-   case "REMOVE_ITEM": return {...state , cartDetailsItem:action.payload , cartCount:action.payload.length}
+    case "UPDATE_COUNT":
+      return { ...state, cartCount: action.payload };
+    case "ADD_DETAILS_TO_CART":
+      return {
+        ...state,
+        cartDetailsItem: action.payload,
+        cartCount: action.payload.length,
+      };
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        cartDetailsItem: action.payload,
+        cartCount: action.payload.length,
+      };
     default:
       return state;
   }

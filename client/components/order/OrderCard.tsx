@@ -10,7 +10,7 @@ type Props = {
   onViewDetails: () => void;
 };
 
-export default function OrderCard({ record, onViewDetails }: Props) {
+export default function OrderCard({ record, onViewDetails }: any) {
   const order = record.order;
   const address = record.delivery_address[0];
   const items = record.order_details;
@@ -32,7 +32,7 @@ export default function OrderCard({ record, onViewDetails }: Props) {
         {/* Image stack + item names */}
         <div className="flex items-center gap-3">
           <div className="flex -space-x-3">
-            {previewImages.map((item, i) => (
+            {previewImages.map((item: any, i: any) => (
               <div
                 key={i}
                 className="relative w-11 h-11 rounded-xl overflow-hidden border-2 border-white"
@@ -59,7 +59,7 @@ export default function OrderCard({ record, onViewDetails }: Props) {
 
           <div className="min-w-0">
             <p className="text-sm font-semibold text-stone-900 truncate max-w-[180px]">
-              {items.map((i) => i.food_item).join(", ")}
+              {items.map((i: any) => i.food_item).join(", ")}
             </p>
             <p className="text-xs text-stone-400 mt-0.5">
               {items.length} item{items.length > 1 ? "s" : ""}

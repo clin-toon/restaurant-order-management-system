@@ -1,10 +1,11 @@
 "use client";
 
-import DishCard, { Dish } from "@/components/Home/DishCard";
+import DishCard from "@/components/Home/DishCard";
+import type { Dish } from "@/types/MenuPageTypes";
 
 import { useAuth } from "@/context/AuthContext/AuthContext";
 
-export default function FeaturedItems({ item }: Dish) {
+export default function FeaturedItems({ item }: any) {
   const { user } = useAuth();
   return (
     <section className="py-16 bg-stone-50">
@@ -17,7 +18,7 @@ export default function FeaturedItems({ item }: Dish) {
           <p>Please start ordering for getting recommendation.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {item.map((item) => (
+            {item.map((item: Dish) => (
               <DishCard
                 key={item.id}
                 id={item.id}
@@ -25,7 +26,7 @@ export default function FeaturedItems({ item }: Dish) {
                 image_url={item.image_url}
                 price={item.price}
                 category={item.category}
-                times={item.orders}
+                times={item.times}
               />
             ))}
           </div>

@@ -3,7 +3,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const getAdminMenuItems = async (
   cookieHeader: string,
-  params: string,
+  params: Record<string, string | string[] | undefined>,
 ): Promise<MenuItemsResponse> => {
   const query = new URLSearchParams(params as any).toString();
   const res = await fetch(`${url}search?${query}`, {
@@ -16,8 +16,7 @@ export const getAdminMenuItems = async (
 };
 
 export const addNewMenuItem = async (menuItem: any) => {
-  console.log(menuItem);
-  const formData = new FormData();
+  const formData: any = new FormData();
 
   Object.entries(menuItem).forEach(([key, value]) => {
     formData.append(key, value);

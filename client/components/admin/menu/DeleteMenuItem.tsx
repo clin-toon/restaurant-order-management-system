@@ -1,7 +1,7 @@
 import { Trash2, AlertTriangle, Loader2, X } from "lucide-react";
 import Image from "next/image";
 
-const DeleteMenuItem = ({ onClose, item, loading, handleDelete }) => {
+const DeleteMenuItem = ({ onClose, item, loading, handleDelete }: any) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}

@@ -1,17 +1,17 @@
 "use client";
-import { ContactQuery } from "@/types/admin.types";
+
 import { useState } from "react";
 import { SortOptionA } from "@/types/admin.types";
 import { MessageSquare, Clock, CheckCheck, Inbox } from "lucide-react";
 import ContactCard from "./ContactCard";
 import FilterBar from "./FilterBar";
 
-const ContactPageClient = ({ item }: ContactQuery) => {
+const ContactPageClient = ({ item }: any) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOptionA>("latest");
 
-  const pending = item.filter((q) => q.status === "pending").length;
-  const replied = item.filter((q) => q.status === "replied").length;
+  const pending = item.filter((q: any) => q.status === "pending").length;
+  const replied = item.filter((q: any) => q.status === "replied").length;
 
   return (
     <div className="min-h-screen bg-stone-50 p-6">
@@ -72,7 +72,7 @@ const ContactPageClient = ({ item }: ContactQuery) => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {item.map((query, idx) => (
+            {item.map((query: any, idx: any) => (
               <ContactCard key={query.c_id} query={query} idx={idx} />
             ))}
           </div>

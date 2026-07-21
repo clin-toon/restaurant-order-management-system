@@ -12,6 +12,7 @@ export type MenuItem = {
 export type SubCategory = {
   id: string;
   label: string;
+  items?: any;
 };
 
 export type Category = {
