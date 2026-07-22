@@ -24,7 +24,7 @@ pool
 // middlewares
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://restaurant-order-management-system-ashen.vercel.app/"],
     credentials: true,
   }),
 );

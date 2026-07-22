@@ -31,18 +31,16 @@ export const loginController = async (req: Request, res: Response) => {
   // 1. Authenticate user via service
   const user = await loginUser(email, password);
 
-  // 2. Generate Token (Payload usually contains ID and Role)
   const token = signToken({
     id: user.id,
     role: user.role,
     name: user.first_name,
   });
 
-  // 3. Send Response
   res.cookie("accessToken", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
     maxAge: 15 * 60 * 1000,
   });
 
