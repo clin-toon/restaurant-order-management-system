@@ -48,9 +48,9 @@ export const loginUser = async (form: LoginFormState) => {
   }
 };
 
-export const getCurrentUser = async (req: NextRequest) => {
+export const getCurrentUser = async () => {
   try {
-    const response = await fetch(`${req.nextUrl.origin}/api/auth/me`, {
+    const response = await fetch(`/api/auth/me`, {
       method: "GET",
       credentials: "include",
     });
