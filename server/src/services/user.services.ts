@@ -72,7 +72,7 @@ export const loginUser = async (email: string, pass: string) => {
 };
 
 export const registerContactInfo = async (contactObj: ContactInput) => {
-  const { first_name, last_name, email, phone, message } = contactObj;
+  const { first_name, last_name, phone, message } = contactObj;
   let results;
 
   const query = `
@@ -88,7 +88,7 @@ export const registerContactInfo = async (contactObj: ContactInput) => {
         RETURNING c_id, first_name, last_name, email, phone, message, status, created_at;
     `;
 
-  const values = [first_name, last_name, email, message, phone, "pending"];
+  const values = [first_name, last_name, message, phone, "pending"];
 
   results = await pool.query(query, values);
 

@@ -30,9 +30,9 @@ pool
 
 // middlewares
 
-app.use(apiLimiter);
 app.use(cookieParser());
 app.use(express.json());
+app.use(apiLimiter);
 app.use("/api", authRoutes);
 app.use("/api", foodRoutes);
 app.use("/api/admin/", adminMenuAndInventoryRoutes);
