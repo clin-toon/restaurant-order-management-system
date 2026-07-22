@@ -7,7 +7,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const registerUser = async (values: FormState) => {
   try {
-    const res = await fetch(`${url}auth/register`, {
+    const res = await fetch(`/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const registerUser = async (values: FormState) => {
 
 export const loginUser = async (form: LoginFormState) => {
   try {
-    const res = await fetch(`${url}auth/login`, {
+    const res = await fetch(`/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ export const loginUser = async (form: LoginFormState) => {
 
 export const getCurrentUser = async () => {
   try {
-    const response = await fetch(`${url}auth/me`, {
+    const response = await fetch(`/auth/me`, {
       method: "GET",
       credentials: "include",
     });
@@ -73,7 +73,7 @@ export const getUser = async (req: NextRequest) => {
   }
 
   try {
-    const response = await fetch(`${url}auth/me`, {
+    const response = await fetch(`/auth/me`, {
       method: "GET",
       headers: {
         cookie: req.headers.get("cookie") ?? "",
@@ -93,7 +93,7 @@ export const getUser = async (req: NextRequest) => {
 
 export const handleLogout = async () => {
   try {
-    const res = await fetch(`${url}auth/logout`, {
+    const res = await fetch(`/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -115,7 +115,7 @@ export const handleLogout = async () => {
 
 export const submitContactForm = async (data: any) => {
   try {
-    const response = await fetch(`${url}admin/contact`, {
+    const response = await fetch(`/admin/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
