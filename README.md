@@ -61,7 +61,7 @@ A modern full-stack restaurant ordering platform built with **Next.js**, **Expre
 
 ### Deployment
 
-* Netlify (Frontend)
+* Vercel (Frontend)
 * Render (Backend)
 
 ---
