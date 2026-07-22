@@ -2,7 +2,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const addItemToTheCart = async (food_id: any) => {
   try {
-    const res = await fetch(`${url}cart/${food_id}`, {
+    const res = await fetch(`/api/cart/${food_id}`, {
       method: "POST",
       credentials: "include",
     });
@@ -22,7 +22,7 @@ export const addItemToTheCart = async (food_id: any) => {
 
 export const getCartDetailsOfTheUser = async () => {
   try {
-    const res = await fetch(`${url}cart`, {
+    const res = await fetch(`/api/cart`, {
       method: "GET",
       credentials: "include",
     });
@@ -44,7 +44,7 @@ export const updateTheCartItemQuantity = async (
   food_id: string,
 ) => {
   try {
-    const res = await fetch(`${url}cart/${food_id}/${quantity}`, {
+    const res = await fetch(`/api/cart/${food_id}/${quantity}`, {
       method: "PUT",
       credentials: "include",
     });
@@ -63,7 +63,7 @@ export const updateTheCartItemQuantity = async (
 
 export const removeItemFromTheCart = async (food_id: string) => {
   try {
-    const res = await fetch(`${url}cart/${food_id}`, {
+    const res = await fetch(`/api/cart/${food_id}`, {
       method: "DELETE",
       credentials: "include",
     });

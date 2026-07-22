@@ -5,7 +5,7 @@ export const fetchContactFormDetails = async (
   params: Record<string, string | string[] | undefined>,
 ) => {
   const query = new URLSearchParams(params as any).toString();
-  let apiEndPoint = `${url}admin/contact?${query}`;
+  let apiEndPoint = `/api/admin/contact?${query}`;
 
   try {
     const res = await fetch(apiEndPoint, {
@@ -31,7 +31,7 @@ export const updateContactFormOrderStatus = async (
   id: string,
 ) => {
   const query = new URLSearchParams(params as any).toString();
-  let apiEndPoint = `${url}admin/contact/${id}`;
+  let apiEndPoint = `/api/admin/contact/${id}`;
 
   try {
     const res = await fetch(apiEndPoint, {

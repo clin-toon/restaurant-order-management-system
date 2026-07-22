@@ -3,7 +3,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const placeOrder = async (orderPayload: createOrderPropsType) => {
   try {
-    const res = await fetch(`${url}order/create`, {
+    const res = await fetch(`/api/order/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const placeOrder = async (orderPayload: createOrderPropsType) => {
 
 export const fetchOrders = async (cookieHeader: string) => {
   try {
-    const res = await fetch(`${url}order/customer-orders`, {
+    const res = await fetch(`/api/order/customer-orders`, {
       method: "GET",
       headers: {
         cookie: cookieHeader, // forward just the auth cookie

@@ -6,7 +6,7 @@ export const getAdminMenuItems = async (
   params: Record<string, string | string[] | undefined>,
 ): Promise<MenuItemsResponse> => {
   const query = new URLSearchParams(params as any).toString();
-  const res = await fetch(`${url}search?${query}`, {
+  const res = await fetch(`/api/search?${query}`, {
     method: "GET",
     headers: { cookie: cookieHeader },
     cache: "no-store",
@@ -23,7 +23,7 @@ export const addNewMenuItem = async (menuItem: any) => {
   });
 
   try {
-    const res = await fetch(`${url}admin/menu/food-items`, {
+    const res = await fetch(`/api/admin/menu/food-items`, {
       method: "POST",
       credentials: "include",
       body: formData,
