@@ -14,6 +14,13 @@ import { apiLimiter } from "./middlewares/ratelimiter.js";
 const port = process.env.PORT || 8000;
 const app = express();
 
+app.use(
+  cors({
+    origin: ["https://restaurant-order-management-system-ashen.vercel.app"],
+    credentials: true,
+  }),
+);
+
 pool
   .connect()
   .then(() => {
@@ -22,12 +29,7 @@ pool
   .catch((error) => console.log(error));
 
 // middlewares
-app.use(
-  cors({
-    origin: ["https://restaurant-order-management-system-ashen.vercel.app/"],
-    credentials: true,
-  }),
-);
+
 app.use(apiLimiter);
 app.use(cookieParser());
 app.use(express.json());
