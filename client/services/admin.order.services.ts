@@ -8,7 +8,7 @@ export const fetchOrderDetails = async (
   params: Record<string, string | string[] | undefined>,
 ) => {
   const query = new URLSearchParams(params as any).toString();
-  let apiEndPoint = `/api/admin/order?${query}`;
+  let apiEndPoint = `${url}admin/order?${query}`;
 
   try {
     const res = await fetch(apiEndPoint, {
@@ -33,7 +33,7 @@ export const updateTheStatusOfTheOrder = async (
   status: string,
 ) => {
   try {
-    const res = await fetch(`/api/admin/order/${order_id}/${status}`, {
+    const res = await fetch(`${url}admin/order/${order_id}/${status}`, {
       method: "PUT",
       credentials: "include",
     });
@@ -53,7 +53,7 @@ export const getOrderDetail = async (
   orderId: string,
   cookieHeader: string,
 ): Promise<OrderDetailResponse> => {
-  const res = await fetch(`/api/admin/order/details/${orderId}`, {
+  const res = await fetch(`${url}admin/order/details/${orderId}`, {
     method: "GET",
     headers: { cookie: cookieHeader },
     cache: "no-store",

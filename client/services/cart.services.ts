@@ -84,7 +84,7 @@ export const fetchDetailsOfTheItemsPresentInCart = async (
   cookieHeader: string,
 ) => {
   try {
-    const res = await fetch(`${url}cart/details`, {
+    const res = await fetch(`/api/cart/details`, {
       method: "GET",
       headers: {
         cookie: cookieHeader, // forward just the auth cookie
@@ -105,7 +105,7 @@ export const fetchDetailsOfTheItemsPresentInCart = async (
 
 export const fetchDetailsOfTheItemsPresentInCartWithInclude = async () => {
   try {
-    const res = await fetch(`${url}cart/details`, {
+    const res = await fetch(`/api/cart/details`, {
       method: "GET",
 
       credentials: "include",

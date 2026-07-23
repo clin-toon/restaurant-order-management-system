@@ -20,7 +20,7 @@ export const fetchHomePageDetails = async (cookieHeader: string) => {
 
 export const fetchRecommendFood = async (cookieHeader: string) => {
   try {
-    const res = await fetch(`/api/recommend`, {
+    const res = await fetch(`${url}recommend`, {
       method: "GET",
       headers: { cookie: cookieHeader },
       cache: "no-store",

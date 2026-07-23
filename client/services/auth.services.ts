@@ -42,6 +42,7 @@ export const loginUser = async (form: LoginFormState) => {
     });
 
     if (!res.ok) return await res.json();
+    console.log(res);
     return await res.json();
   } catch (error) {
     console.log(error);
@@ -73,7 +74,7 @@ export const getUser = async (req: NextRequest) => {
   }
 
   try {
-    const response = await fetch(`/api/auth/me`, {
+    const response = await fetch(`${req.nextUrl.origin}/api/auth/me`, {
       method: "GET",
       headers: {
         cookie: req.headers.get("cookie") ?? "",
@@ -101,7 +102,6 @@ export const handleLogout = async () => {
     if (!res.ok) {
       throw new Error("Logout failed");
     }
-    const data = await res.json();
 
     toast.success("Logged out successfully.");
 
@@ -115,7 +115,7 @@ export const handleLogout = async () => {
 
 export const submitContactForm = async (data: any) => {
   try {
-    const response = await fetch(`/admin/contact`, {
+    const response = await fetch(`/api/admin/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -26,14 +26,14 @@ export const placeOrder = async (orderPayload: createOrderPropsType) => {
 
 export const fetchOrders = async (cookieHeader: string) => {
   try {
-    const res = await fetch(`/api/order/customer-orders`, {
+    const res = await fetch(`${url}order/customer-orders`, {
       method: "GET",
       headers: {
-        cookie: cookieHeader, // forward just the auth cookie
+        cookie: cookieHeader,
       },
     });
     if (!res.ok) {
-      throw new Error("Faile to fetch posts");
+      throw new Error("Failed to fetch posts");
     }
     const result = await res.json();
     return result;

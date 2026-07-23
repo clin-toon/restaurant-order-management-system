@@ -5,7 +5,7 @@ export const fetchContactFormDetails = async (
   params: Record<string, string | string[] | undefined>,
 ) => {
   const query = new URLSearchParams(params as any).toString();
-  let apiEndPoint = `/api/admin/contact?${query}`;
+  let apiEndPoint = `${url}admin/contact?${query}`;
 
   try {
     const res = await fetch(apiEndPoint, {

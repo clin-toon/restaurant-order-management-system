@@ -35,7 +35,6 @@ function Section({
   );
 }
 
-// ── Single setting row ─────────────────────────────────────────────────────────
 function SettingRow({
   label,
   description,
