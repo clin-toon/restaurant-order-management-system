@@ -11,6 +11,7 @@ export default async function Home() {
   try {
     const data = await fetchHomePageDetails(cookieHeader);
     food = data;
+    console.log(food);
   } catch {
     food = [];
   }

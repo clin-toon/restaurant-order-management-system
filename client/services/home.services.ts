@@ -2,7 +2,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const fetchHomePageDetails = async (cookieHeader: string) => {
   try {
-    const res = await fetch(`/api/home`, {
+    const res = await fetch(`${url}home`, {
       method: "GET",
       headers: { cookie: cookieHeader },
       cache: "no-store",
@@ -11,6 +11,7 @@ export const fetchHomePageDetails = async (cookieHeader: string) => {
       console.log(res);
     }
     const result = await res.json();
+    console.log(result);
     return result.data;
   } catch (error) {
     console.log(error);

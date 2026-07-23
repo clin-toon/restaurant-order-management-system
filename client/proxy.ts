@@ -11,7 +11,7 @@ export const proxy = async (req: NextRequest) => {
   // 1. Public-only routes — redirect logged-in users away
   if (PUBLIC_ONLY_ROUTES.some((r) => pathname.startsWith(r))) {
     const user = await getUser(req);
-
+    console.log(user);
     if (user) {
       const redirectTo = user.role === "admin" ? "/dashboard" : "/home";
       return NextResponse.redirect(new URL(redirectTo, req.url));

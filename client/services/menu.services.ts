@@ -4,7 +4,7 @@ const url = process.env.NEXT_PUBLIC_API;
 
 export const fetchMenuItems = async () => {
   try {
-    const res = await fetch(`/api/food`);
+    const res = await fetch(`${url}/food`);
     const data = await res.json();
     return data.data;
   } catch (error) {
@@ -15,7 +15,7 @@ export const fetchMenuItems = async () => {
 export const getMenuDataWithFilters = async (params: SearchParamsShape) => {
   const query = new URLSearchParams(params as any).toString();
   try {
-    const res = await fetch(`/api/search?${query}`);
+    const res = await fetch(`${url}search?${query}`);
     const data = await res.json();
     const obj = {
       totalPages: data.count,

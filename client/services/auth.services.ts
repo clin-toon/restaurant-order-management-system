@@ -34,7 +34,7 @@ export const registerUser = async (values: FormState) => {
 
 export const loginUser = async (form: LoginFormState) => {
   try {
-    const res = await fetch(`/api/auth/login`, {
+    const res = await fetch(`api/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -115,7 +115,7 @@ export const handleLogout = async () => {
 
 export const submitContactForm = async (data: any) => {
   try {
-    const response = await fetch(`/api/admin/contact`, {
+    const response = await fetch(`/admin/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
