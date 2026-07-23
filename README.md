@@ -8,7 +8,7 @@ A modern full-stack restaurant ordering platform built with **Next.js**, **Expre
 ### Customer Features
 
 * User registration and login
-* JWT-based authentication
+* JWT-based authentication (cookie based)
 * Browse restaurant menu
 * Add and remove items from cart
 * Place orders
@@ -214,13 +214,13 @@ Admin Uploads Image
 * Next.js App Router Architecture
 * Responsive UI with Shadcn/UI and Tailwind CSS
 * PostgreSQL Database with Raw SQL Queries
-* JWT Authentication & Authorization
+* JWT Authentication & Authorization(cookie and role based)
 * Cloudinary Media Management
 * Multer File Upload Handling
 * Zod Request Validation
 * API Rate Limiting
 * Role-Based Access Control
-* Production Deployment with Netlify and Render
+* Production Deployment with Vercel and Render
 
 ---
 
